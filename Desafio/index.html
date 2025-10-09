@@ -60,8 +60,12 @@
             <h2>Novo projeto</h2>
             <form action="">
                 <div>
+                    <label for="nome">Usuario</label>
+                    <input type="text" id="nome-usuario" nome="nome">
+                </div>
+                <div>
                     <label for="nome">Nome do projeto</label>
-                    <input type="text" id="categoria" nome="nome">
+                    <input type="text" id="categoria" nome="usuario">
                 </div>
                 <div>
                     <label for="descricao">Descrição</label>
@@ -71,7 +75,7 @@
                     <label for="categoria">Tags</label>
                     <input type="text" id="categoria" nome="tag">
                 </div>
-                <ul class="lista-tags">
+                <ul class="lista-tags" id="lista-tags">
                     <li>
                         <p>Gato Laranja</p>
                         <img src="img/close.svg" alt="">

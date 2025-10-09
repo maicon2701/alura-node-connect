@@ -67,51 +67,51 @@ const conteudoArquivo = document.querySelector('conteudoArquivo');
 
 
 
-upload.addEventListener('change', async (evento) => {
-    const arquivo = evento.target.files[0];
-    if(arquivo){
-        try{
-            const conteudo = await lerConteudoDoArquivo(arquivo);
-            conteudoArquivo.textContent = conteudo.url;
-        }catch(erro){
-            console.log(`Erro na leitura do arquivo: ${erro}`)
-        }
-    }
+// upload.addEventListener('change', async (evento) => {
+//     const arquivo = evento.target.files[0];
+//     if(arquivo){
+//         try{
+//             const conteudo = await lerConteudoDoArquivo(arquivo);
+//             conteudoArquivo.textContent = conteudo.url;
+//         }catch(erro){
+//             console.log(`Erro na leitura do arquivo: ${erro}`)
+//         }
+//     }
 
 
-    function lerConteudoDoArquivo(arquivo){
-        return new Promise((resolve, reject) => {
-            const leitor = new FileReader();
-            leitor.onload = () => resolve({texto: leitor.result});
-            leitor.onerror = () => reject(leitor.error);
-            leitor.readAsText(arquivo);
-        })
-    }
+//     function lerConteudoDoArquivo(arquivo){
+//         return new Promise((resolve, reject) => {
+//             const leitor = new FileReader();
+//             leitor.onload = () => resolve({texto: leitor.result});
+//             leitor.onerror = () => reject(leitor.error);
+//             leitor.readAsText(arquivo);
+//         })
+//     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const upload = document.querySelector('#upload')
-        const listaDados = document.querySelector('#listaDados')
+//     document.addEventListener('DOMContentLoaded', () => {
+//         const upload = document.querySelector('#upload')
+//         const listaDados = document.querySelector('#listaDados')
 
-        upload.addEventListener('change', async (evento) => {
-            const arquivo = evento.target.files[0];
-            if(arquivo){
-                try{
-                    const conteudo = await lerConteudoDoArquivo(arquivo);
-                    const dados = JSON.parse(conteudo.texto);
-                    listaDados.innerHTML = '';
-                    dados.forEach(dado => {
-                        const li = document.createElement('li');
-                        li.textContent = JSON.stringify(dado);
-                        listaDados.appendChild(li);
-                    })
-                }catch(erro){
-                    console.error('Erro na leitura do arquivo:', erro)
-                }
-            }
-        })
-    })
+//         upload.addEventListener('change', async (evento) => {
+//             const arquivo = evento.target.files[0];
+//             if(arquivo){
+//                 try{
+//                     const conteudo = await lerConteudoDoArquivo(arquivo);
+//                     const dados = JSON.parse(conteudo.texto);
+//                     listaDados.innerHTML = '';
+//                     dados.forEach(dado => {
+//                         const li = document.createElement('li');
+//                         li.textContent = JSON.stringify(dado);
+//                         listaDados.appendChild(li);
+//                     })
+//                 }catch(erro){
+//                     console.error('Erro na leitura do arquivo:', erro)
+//                 }
+//             }
+//         })
+//     })
 
-} )
+// } )
 
 function lerConteudoDoArquivo(arquivo){
     return new Promise((resolve, reject) => {
@@ -126,3 +126,26 @@ function lerConteudoDoArquivo(arquivo){
 let listaDeGatos = [{nome: 'Mimi', cor: 'branco'}, {nome: 'Gatinha', cor:'Escaminha'}, {nome: 'Misquin', cor: 'Laranja'}]
 let gatosLaranjas = filtrarGatosPorCor(listaDeGatos, 'Laranja');
 console.log(gatosLaranjas,`${gatosLaranjas[0].nome}`);
+
+
+const inputUsuario = document.getElementById('nome-usuario');
+console.log(inputUsuario,"AAAAAAS")
+const listaTags = document.getElementById('lista-tags')
+console.log(`tagsLista ${listaTags}`)
+inputUsuario.addEventListener('keypress', (evento) =>{
+    if(evento.key === "Enter"){
+        evento.preventDefault()
+
+        const valorTags = inputUsuario.value.trim();
+        if (valorTags !== ""){
+            console.log(`listaTags ${listaTags}`)
+            const tagNova = document.createElement("li")
+            console.log(tagNova)
+            tagNova.innerHTML = `<p>${valorTags}</p>  <img src="./img/close.svg">`
+            listaTags.appendChild(tagNova)
+            inputTags.value = "";
+
+            console.log(`Cheogou no if, ${tagNova}`)
+        }
+    }
+})

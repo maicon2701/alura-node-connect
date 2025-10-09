@@ -59,7 +59,7 @@ inputTags.addEventListener('keypress', (evento) =>{
         //Remove os espaços em branco antes e dps da palavra
         const tagTexto = inputTags.value.trim();
         //If para verificar se algo foi digitado no campo.
-        if (tagTexto !== ""){
+        if (tagTexto !== "" && tagsDisponiveis.includes(tagTexto)){
             const tagNova = document.createElement("li");
             //Criação da tag digitada no campo inputTags
             tagNova.innerHTML = `<p>${tagTexto}</p> <img src="./img/close-black.svg" class="remove-tag">`
@@ -78,3 +78,16 @@ listaTags.addEventListener("click",(evento) =>{
         listaTags.removeChild(tagQueQueremosRemover)
     }
 })
+
+
+const tagsDisponiveis = ["Front-end","Programação","Data Science","Full-Stack","HTML","CSS","JavaScript"]
+//Simulação de requisição a um servidor
+async function verificarTagsDisponiveis(tagTexto){
+     return new Promisse((resolve) =>{
+        //SetTimeout é uma função que executa um código ou uma função após um determinado período de tempo.
+        setTimeout(() => {
+            resolve(tagsDisponiveis.includes(tagTexto))
+            //1000: Definição de milisegundos. 1000ms = 1s 
+        }, 1000)
+     })
+}
