@@ -47,3 +47,34 @@ inputUpload.addEventListener("change", async (evento) =>{
         }
     }
 })
+
+const inputTags = document.getElementById("input-tags");
+const listaTags = document.getElementById("lista-tags")
+
+inputTags.addEventListener('keypress', (evento) =>{
+    //Key: evento que detecta a tecla pressionada
+    if (evento.key === "Enter"){
+        //Evento que evita que ocorra a perca de informações no formulário caso a tela atualize.
+        evento.preventDefault()
+        //Remove os espaços em branco antes e dps da palavra
+        const tagTexto = inputTags.value.trim();
+        //If para verificar se algo foi digitado no campo.
+        if (tagTexto !== ""){
+            const tagNova = document.createElement("li");
+            //Criação da tag digitada no campo inputTags
+            tagNova.innerHTML = `<p>${tagTexto}</p> <img src="./img/close-black.svg" class="remove-tag">`
+            listaTags.appendChild(tagNova);
+            inputTags.value = "";
+        }
+    }
+})
+
+
+//Remover tags
+listaTags.addEventListener("click",(evento) =>{
+    //O target está pegando o evento do clique e definindo onde que está acontecendo esse clique.
+    if(evento.target.classList.contains("remove-tag")){
+        const tagQueQueremosRemover = evento.target.parentElement;
+        listaTags.removeChild(tagQueQueremosRemover)
+    }
+})

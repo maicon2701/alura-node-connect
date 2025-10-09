@@ -14,7 +14,7 @@ function lerConteudoDoArquivo(arquivo){
 
         leitor.onload = () => {
             resolve({
-                resultado: leitor.restul,
+                resultado: leitor.result,
                 nome: arquivo.nome
             })
         }
@@ -29,7 +29,7 @@ function lerConteudoDoArquivo(arquivo){
 
 
 function filtrarGatosPorCor(listaDeGatos, corDesejada){
-return listaDeGatos.filter(gato => gato.cor === corDesejada)
+    return listaDeGatos.filter(gato => gato.cor === corDesejada)
 }
 
 
