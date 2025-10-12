@@ -6,7 +6,7 @@ uploadBtn.addEventListener('click',() => {
 })
 
 function lerConteudoDoArquivo(arquivo){
-    //O new promise é uma maneira de criar uma nova instancia de uma promisse que é usado para lidar com operações assíncronas no JavaScript.(O termo assíncrono refere-se a uma operação ou execução que ocorre de forma independente do fluxo principal de um programa, permitindo que outras partes do código sejam executadas enquanto essa operação está em andamento)
+    //O new promise é uma maneira de criar uma nova instancia de uma promise que é usado para lidar com operações assíncronas no JavaScript.(O termo assíncrono refere-se a uma operação ou execução que ocorre de forma independente do fluxo principal de um programa, permitindo que outras partes do código sejam executadas enquanto essa operação está em andamento)
     //A palavra-chave new em JavaScript é usada para criar uma nova instância de um objeto a partir de uma função construtora. Basicamente, ela serve para instanciar objetos que têm propriedades e métodos definidos em uma função
     return new Promise((resolve, reject) => {
         
@@ -37,7 +37,7 @@ inputUpload.addEventListener("change", async (evento) =>{
     if(arquivo){
         //Se o carregamento do arquivo der certo ele vai colocar a imagem carregada e o nome da imagem no projeto.
         try{
-            //O await é usado para esperar a promisse ser completada antes de continuar com o próximo passo.
+            //O await é usado para esperar a promise ser completada antes de continuar com o próximo passo.
             const conteudoDoArquivo = await lerConteudoDoArquivo(arquivo);    
             imagemPrincipal.src = conteudoDoArquivo.url;
             nomeDaImagem.textContent = conteudoDoArquivo.nome;
@@ -83,7 +83,7 @@ listaTags.addEventListener("click",(evento) =>{
 const tagsDisponiveis = ["Front-end","Programação","Data Science","Full-Stack","HTML","CSS","JavaScript"]
 //Simulação de requisição a um servidor
 async function verificarTagsDisponiveis(tagTexto){
-     return new Promisse((resolve) =>{
+     return new Promise((resolve) =>{
         //SetTimeout é uma função que executa um código ou uma função após um determinado período de tempo.
         setTimeout(() => {
             resolve(tagsDisponiveis.includes(tagTexto))

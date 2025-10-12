@@ -137,11 +137,11 @@ inputUsuario.addEventListener('keypress', (evento) =>{
         evento.preventDefault()
 
         const valorTags = inputUsuario.value.trim();
-        if (valorTags !== ""){
+        if (valorTags !== "" && tagsDisponiveis.includes(valorTags)){
             console.log(`listaTags ${listaTags}`)
             const tagNova = document.createElement("li")
             console.log(tagNova)
-            tagNova.innerHTML = `<p>${valorTags}</p>  <img src="./img/close.svg">`
+            tagNova.innerHTML = `<p>${valorTags}</p>  <img src="./img/close.svg" class="remove-tag">`
             listaTags.appendChild(tagNova)
             inputTags.value = "";
 
@@ -149,3 +149,24 @@ inputUsuario.addEventListener('keypress', (evento) =>{
         }
     }
 })
+
+
+listaTags.addEventListener('click', (evento) => {
+    if(evento.target.classList.contains("remove-tag")){
+        const tagQueQueremosRemover = evento.target.parentElement
+        listaTags.removeChild(tagQueQueremosRemover)
+    }
+})
+
+const tagsDisponiveis = ["Front-end","Programação","Data Science","Full-Stack","HTML","CSS","JavaScript"]
+
+async function verificarTagsDisponiveis(valorTags){
+    return new Promise((resolve) =>{
+        //SetTimeout é uma função que executa um código ou uma função após um determinado período de tempo.
+        setTimeout(() => {
+            resolve(tagsDisponiveis.includes(valorTags))
+            //1000: Definição de milisegundos. 1000ms = 1s 
+        }, 1000)
+     })
+
+}
