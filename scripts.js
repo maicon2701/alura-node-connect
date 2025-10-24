@@ -51,25 +51,6 @@ inputUpload.addEventListener("change", async (evento) =>{
 const inputTags = document.getElementById("input-tags");
 const listaTags = document.getElementById("lista-tags")
 
-inputTags.addEventListener('keypress', (evento) =>{
-    //Key: evento que detecta a tecla pressionada
-    if (evento.key === "Enter"){
-        //Evento que evita que ocorra a perca de informações no formulário caso a tela atualize.
-        evento.preventDefault()
-        //Remove os espaços em branco antes e dps da palavra
-        const tagTexto = inputTags.value.trim();
-        //If para verificar se algo foi digitado no campo.
-        if (tagTexto !== "" && tagsDisponiveis.includes(tagTexto)){
-            const tagNova = document.createElement("li");
-            //Criação da tag digitada no campo inputTags
-            tagNova.innerHTML = `<p>${tagTexto}</p> <img src="./img/close-black.svg" class="remove-tag">`
-            listaTags.appendChild(tagNova);
-            inputTags.value = "";
-        }
-    }
-})
-
-
 //Remover tags
 listaTags.addEventListener("click",(evento) =>{
     //O target está pegando o evento do clique e definindo onde que está acontecendo esse clique.
@@ -79,7 +60,7 @@ listaTags.addEventListener("click",(evento) =>{
     }
 })
 
-
+//Verifica se há tags disponiveis
 const tagsDisponiveis = ["Front-end","Programação","Data Science","Full-Stack","HTML","CSS","JavaScript"]
 //Simulação de requisição a um servidor
 async function verificarTagsDisponiveis(tagTexto){
@@ -91,3 +72,50 @@ async function verificarTagsDisponiveis(tagTexto){
         }, 1000)
      })
 }
+
+
+
+inputTags.addEventListener('keypress', async (evento) =>{
+    //Key: evento que detecta a tecla pressionada
+    if (evento.key === "Enter"){
+        //Evento que evita que ocorra a perca de informações no formulário caso a tela atualize.
+        evento.preventDefault()
+        //Remove os espaços em branco antes e dps da palavra
+        const tagTexto = inputTags.value.trim();
+        //If para verificar se algo foi digitado no campo.
+        if (tagTexto !== ""){
+            //O try/catch foi adicionado para capturar um erro se ele surgir.
+            try{
+            const tagExiste = await verificarTagsDisponiveis(tagTexto);
+            if (tagExiste){
+                const tagNova = document.createElement("li");
+                //Criação da tag digitada no campo inputTags
+                tagNova.innerHTML = `<p>${tagTexto}</p> <img src="./img/close-black.svg" class="remove-tag">`
+                listaTags.appendChild(tagNova);
+                inputTags.value = "";
+            } else {
+                alert("Tag não foi encontrada.")
+            }
+        } catch(error){
+            console.error("Erro ao verificar a existência da tag.");
+            alert("Erro ao verificar a existência da tag. Verifique o console.")
+        }
+        }
+    }
+})
+
+const botaoPublicar = document.querySelector(".botao-publicar");
+
+botaoPublicar.addEventListener("click", async (evento) => {
+    evento.preventDefault();
+    const nomeDoProjeto = document.getElementById("nome").value;
+    const descricaoDoProjeto = document.getElementById("descricao").value;
+    //Array.from cria um novo array a partir  de um objeto semelhante a um array.
+    //.map() é uma função de array que cria um novo array preenchido com os resultados de uma função fornecida para cada elemento do array de origem. É uma maneira eficiente de transformar dados em um areray de maneira funcional.
+    const tagsProjeto = Array.from(listaTags.querySelectorAll("p")).map((tag) => tag.textContent)
+
+    console.log(nomeDoProjeto)
+    console.log(descricaoDoProjeto)
+    console.log(tagsProjeto)
+
+})
