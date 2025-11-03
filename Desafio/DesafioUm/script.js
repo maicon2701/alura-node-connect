@@ -8,7 +8,7 @@ async function verificaEmailDisponivel(email) {
     });
 }
 
-document.getElementById('email-input').addEventListener('click',function (event) {
+document.getElementById('email-input').addEventListener('blur',function (event) {
     const email = event.target.value;
     console.log("AAAAAAAAAAAAAAAAAAAAAAA")
 
@@ -23,21 +23,6 @@ document.getElementById('email-input').addEventListener('click',function (event)
     }
 });
 
-
-
-document.getElementById('email-input').addEventListener('blur', async function (event) {
-    const email = event.target.value;
-
-    if (email.trim() !== "") {
-        try {
-            const emailDisponivel = await verificaEmailDisponivel(email);
-            exibirFeedback(emailDisponivel, email);
-        } catch (error) {
-            console.error('Erro ao verificar a disponibilidade do e-mail:', error);
-            exibirFeedbackErro();
-        }
-    }
-});
 
 function exibirFeedback(disponivel, email) {
     const feedbackElemento = document.getElementById('email-feedback');
